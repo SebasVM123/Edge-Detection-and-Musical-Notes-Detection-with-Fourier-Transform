@@ -60,7 +60,11 @@
 				</div>
 				<div class="d-flex align-items-center justify-content-center col-md-6 col-12 mb-6">
 					<div class="d-flex justify-content-center" id="upload-img-box">
-						<button class="btn primary-btn my-6 m-text bold-text">Cargar Imagen</button>
+						<form method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							<input type="file" name="image" accept=".png, .jpg, .jpeg, .webp"></input>
+							<button class="btn primary-btn my-6 m-text bold-text">Cargar Imagen</button>
+						</form>
 					</div>
 				</div>
 			</div>

@@ -1,10 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html lang="es">
 <head>
+	<!-- Metadata -->
 	<meta charset="UTF-8">
-	<title>Title</title>
+	<meta name="author" content="Sebastian Velasquez">
+	<meta name="description" content="Página principal del sitio web de Awesome Fourier">
+	<meta name="keywords" content="detección de bordes, fourier, convolución">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Titulo -->
+	<title>Awesome Fourier | Página principal del sitio web de Awesome Fourier</title>
+	<!-- favicon -->
+	<!-- link rel="icon" href="{% static 'assets/favicon.png' %}" type="image/png" -->
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<!-- Bootstrap icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<!-- FontAwesome icons -->
+	<script src="https://kit.fontawesome.com/f53f4ad4af.js" crossorigin="anonymous"></script>
+	<!-- CSS -->
+	<link href="{% static 'css/styles.css' %}" rel="stylesheet">
 </head>
 <body>
-index.html
+	<header class="bg-lblack">
+		<nav class="navbar navbar-expand-md px-lg-5 bb-2">
+		    <div class="container-fluid">
+		        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+		            <span class="navbar-toggler-icon"></span>
+		        </button>
+				<a class="navbar-brand" href="#">
+					<img class="img-fluid" src="{% static 'assets/images/logo.png' %}" alt="logo de Awesome Fourier" id="header-logo">
+				</a>
+			    <div class="collapse navbar-collapse" id="navbar-toggler">
+				    <div class="d-flex justify-content-between w-100">
+	                    <div>
+	                        <a class="l-text title-font no-decoration bold-text c-white" href="#">AWESOME FOURIER</a>
+	                    </div>
+	                    <div class="text-end d-flex align-items-center">
+	                        <a class="c-white" href="#">¿Cómo funciona?</a>
+                        </div>
+                    </div>
+		        </div>
+		    </div>
+	    </nav>
+	</header>
+	<main class="my-6">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-12 mb-6 bg-yellow smooth-border hide-overflow">
+					<div class="row flex-column">
+						<div class="no-spacing">
+				            <img class="img-fluid" src="{% static 'assets/images/prueba1.png' %}" alt="imagen con bordes detectados">
+				        </div>
+				        <div>
+				            <h2 class="title-font xl-text">Detecta los bordes de las imágenes</h2>
+					        <span class="normal-font">100% automático y gratis</span>
+				        </div>
+					</div>
+				</div>
+				<div class="d-flex align-items-center justify-content-center col-md-6 col-12 mb-6">
+					<div class="d-flex justify-content-center" id="upload-img-box">
+						<button class="btn primary-btn my-6 m-text bold-text">Cargar Imagen</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer class="container-fluid mt-6 pt-3 text-center bg-lblack">
+		<div class="row w-100">
+			<h2 class="l-text title-font">Awesome Fourier</h2>
+		</div>
+		<div class="row w-100">
+			<p>© Papiro & Tinta 2023 - Todos los derechos reservados</p>
+		</div>
+	</footer>
+	<!-- JS Bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>

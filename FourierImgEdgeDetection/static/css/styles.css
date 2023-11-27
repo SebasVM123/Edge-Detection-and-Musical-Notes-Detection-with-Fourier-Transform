@@ -1,0 +1,120 @@
+:root {
+    --black: rgb(28, 25, 26);
+    --light-black: rgb(48, 48, 48);
+    --orange: rgb(241, 73, 2);
+    --light-orange: rgba(253, 101, 36);
+    --light-blue: rgb(7, 165, 195);
+    --yellow: rgb(244, 179, 36);
+    --white: rgb(246, 231, 216);
+
+    --shadow-black: rgba(48, 48, 48, 0.4);
+    --shadow-orange: rgba(241, 73, 2, 0.7);
+}
+
+body {
+    background-color: var(--white);
+}
+
+/* fuentes ====================================================================================*/
+@font-face {
+    font-family: 'Oswald';
+    src: url('../assets/fonts/Oswald/Oswald-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../assets/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+
+* {
+    font-family: 'Roboto', calibri;
+    font-size: 1.05rem;
+}
+
+.title-font {
+    font-family: 'Oswald';
+}
+
+.normal-font {
+    font-family: 'Roboto', calibri;
+}
+
+/* genéricos ==================================================================================*/
+/* display utilities----------------------------*/
+.no-decoration {text-decoration: none; }
+.no-spacing { padding: 0; margin: 0}
+.no-padding { padding: 0;}
+.hide-overflow { overflow: hidden;}
+
+/* colores -------------------------------------*/
+.bg-lblack { background-color: var(--light-black);}
+.bg-yellow { background-color: var(--yellow);}
+.c-orange { color: var(--orange);}
+.c-white { color: var(--white);}
+
+/* margenes ------------------------------------*/
+.m-6 { margin: 6rem;}
+.my-6 { margin-top: 6rem; margin-bottom: 6rem;}
+.mt-6 { margin-top: 6rem;}
+.mt-7 { margin-top: 8rem;}
+.mb-6 { margin-bottom: 6rem;}
+
+/* elementos responsive ------------------------*/
+.responsive-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* texto ---------------------------------------*/
+.xl-text { font-size: 3rem;}
+.l-text { font-size: 2rem;}
+.m-text { font-size: 1.5rem;}
+a { color: var(--black);}
+.bold-text { font-weight: bold;}
+.italic-text { font-weight: italic;}
+
+/* bordes --------------------------------------*/
+.b-1 { border: 1px solid var(--black);} .b-2 { border: 2px solid var(--black);}
+.bb-1 { border-bottom: 1px solid var(--black);} .bb-2 { border-bottom: 2px solid var(--black);}
+.tb-1 { border-top: 1px solid var(--black);} .tb-2 { border-top: 2px solid var(--black);}
+
+.smooth-border { border-radius: 10px;}
+
+/* botones -------------------------------------*/
+.primary-btn {
+    border: 2px solid var(--black);
+    border-radius: 10px;
+    background-color: var(--yellow);
+    color: var(--black);
+}
+
+.primary-btn:hover, .primary-btn:active {
+    border: 2px solid var(--black) !important;
+    background-color: var(--light-orange) !important;
+    color: var(--white) !important;
+}
+
+.primary-btn:focus-visible {
+    border: 2px solid var(--black);
+    background-color: var(--orange);
+    color: var(--white);
+    box-shadow: 0 0 0 0.25rem var(--shadow-orange);
+}
+
+
+/* personalizados =============================================================================*/
+#header-logo {
+    max-width: 100px;
+    height: auto;
+}
+
+#upload-img-box {
+    width: 80%;
+    border-radius: 20px;
+    box-shadow: 0 0 3rem 0.1rem var(--shadow-black);
+    background-color: var(--white);
+}
+
+
+

@@ -5,10 +5,17 @@ from django.conf import settings
 from django.urls import reverse
 
 import cv2
-import numpy as np
 from scipy import signal
-import matplotlib.pyplot as plt
 from skimage.color import rgb2gray
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import scipy.fftpack as fourier
+import scipy.io.wavfile as waves
+import winsound
+
+
+matplotlib.use('Agg')
 
 
 def index(request):
@@ -17,10 +24,7 @@ def index(request):
 
         # procesamiento
         static_root = ('C:/Users/sebas/PycharmProjects/Final-ComunicacionesI/FourierImgEdgeDetection/static/'
-                       'assets/images')
-
-        '''if not imagen_adjunta.name.endswith(('.png', '.jpg', '.jpeg')):
-            return HttpResponseBadRequest('Formato de imagen no válido')'''
+                       'assets/generated_images')
 
         image_path = os.path.join(static_root, 'uploaded_image.png')
         with open(image_path, 'wb') as f:
@@ -48,7 +52,7 @@ def index(request):
             return edges
 
         image = sobel_kernel_convolve2d(gray_image)
-        image_path = os.path.join(static_root, 'final_image.png')
+        image_path = os.path.join(static_root, 'image_with_edges.png')
         cv2.imwrite(image_path, image * 255)
 
         return redirect(reverse('download_image'))
@@ -57,4 +61,82 @@ def index(request):
 
 
 def download_image(request):
-    return render(request, 'upload_success.html')
+    return render(request, 'upload_img_success.html')
+
+
+def musical_notes(request):
+    if request.method == 'POST':
+        uploaded_sound = request.FILES['sound']
+
+        static_root = ('C:/Users/sebas/PycharmProjects/Final-ComunicacionesI/FourierImgEdgeDetection/static/'
+                       'assets/generated_sounds')
+
+        sound_path = os.path.join(static_root, 'uploaded_sound.wav')
+        with open(sound_path, 'wb') as f:
+            for chunk in uploaded_sound.chunks():
+                f.write(chunk)
+
+        winsound.PlaySound(sound_path, winsound.SND_FILENAME)
+
+        Fs, data = waves.read(sound_path)
+        audio_m = data[:, 0]
+
+        L = len(audio_m)
+        n = np.arange(0, L)/Fs
+
+        plt.plot(n, audio_m)
+        plt.title(str(uploaded_sound))
+        plt.xlabel('Tiempo (s)', fontsize=14)
+        image_path = os.path.join(static_root, 'sound_time_domain.png')
+        plt.savefig(image_path)
+        plt.clf()
+
+        audio_m.shape
+
+        gk = fourier.fft(audio_m)
+        M_gk = abs(gk)
+        M_gk = M_gk[0:L//2]
+
+        F = Fs * np.arange(0, L//2)/L
+
+        plt.plot(F, M_gk)
+        plt.xlim(-1000, 1000)
+        plt.title(str(uploaded_sound))
+        plt.xlabel('Frecuencia (HZ)', fontsize='14')
+        plt.ylabel('Amplitud FFT', fontsize='14')
+        image_path = os.path.join(static_root, 'sound_frec_domain.png')
+        plt.savefig(image_path)
+        plt.clf()
+
+        Posm = np.where(M_gk == np.max(M_gk))
+        F_fund = F[Posm]
+
+        if F_fund > 135 and F_fund < 155:  # Rango de frecuencias para nota RE
+            result = f'La nota es RE, con frecuencia: {round(F_fund[0], 3)}Hz'
+        elif F_fund > 175 and F_fund < 185:  # Rango de frecuencias para nota FA
+            result = f'La nota es FA, con frecuencia: {round(F_fund[0], 3)}Hz'
+        elif F_fund > 190 and F_fund < 210:  # Rango de frecuencias para nota SOL
+            result = f'La nota es SOL, con frecuencia: {round(F_fund[0], 3)}Hz'
+        elif F_fund > 235 and F_fund < 255:  # Rango de frecuencias para nota SI
+            result = f'La nota es SI, con frecuencia: {round(F_fund[0], 3)}Hz'
+        elif F_fund > 275 and F_fund < 285:  # Rango de frecuencias para nota DO
+            result = f'La nota es DO, con frecuencia: {round(F_fund[0], 3)}Hz'
+        elif F_fund > 320 and F_fund < 340:  # Rango de frecuencias para nota MI
+            result = f'La nota es MI, con frecuencia: {round(F_fund[0], 3)}Hz'
+        elif F_fund > 430 and F_fund < 460:  # Rango de frecuencias para nota LA
+            result = f'La nota es LA, con frecuencia: {round(F_fund[0], 3)}Hz'
+        else:
+            result = f'El sonido no pudo ser clasificado, con frecuencia {round(F_fund[0], 3)}'
+
+        request.session['result'] = result
+
+        return redirect(reverse('see_sound'))
+
+    return render(request, 'fourier.html')
+
+
+def see_sound(request):
+    result = request.session.get('result')
+    context = {'result': result}
+
+    return render(request, 'upload_sound_success.html', context)

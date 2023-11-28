@@ -123,6 +123,12 @@ a { color: var(--black);}
     background-color: var(--white);
 }
 
+#sound-container {
+    border-radius: 20px;
+    box-shadow: 0 0 3rem 0.1rem var(--shadow-black);
+    background-color: var(--white);
+}
+
 
 
 

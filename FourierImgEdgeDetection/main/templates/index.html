@@ -23,7 +23,7 @@
 </head>
 <body>
 	<header class="bg-lblack">
-		<nav class="navbar navbar-expand-md px-lg-5 bb-2">
+		<nav class="navbar navbar-expand-md px-lg-5">
 		    <div class="container-fluid">
 		        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-toggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
 		            <span class="navbar-toggler-icon"></span>
@@ -34,11 +34,8 @@
 			    <div class="collapse navbar-collapse" id="navbar-toggler">
 				    <div class="d-flex justify-content-between w-100">
 	                    <div>
-	                        <a class="l-text title-font no-decoration bold-text c-white" href="#">AWESOME FOURIER</a>
+	                        <a class="l-text title-font no-decoration bold-text c-white" href="#">AWESOME EDGES</a>
 	                    </div>
-	                    <div class="text-end d-flex align-items-center">
-	                        <a class="c-white" href="#">¿Cómo funciona?</a>
-                        </div>
                     </div>
 		        </div>
 		    </div>
@@ -59,11 +56,15 @@
 					</div>
 				</div>
 				<div class="d-flex align-items-center justify-content-center col-md-6 col-12 mb-6">
-					<div class="d-flex justify-content-center" id="upload-img-box">
+					<div class="d-flex justify-content-center align-items-center" id="upload-img-box">
 						<form method="post" enctype="multipart/form-data">
 							{% csrf_token %}
-							<input type="file" name="image" accept=".png, .jpg, .jpeg, .webp"></input>
-							<button class="btn primary-btn my-6 m-text bold-text">Cargar Imagen</button>
+							<div class="d-flex flex-column justify-content-center align-items-center my-6">
+								<div class="input-group mb-3">
+									<input type="file" name="image" class="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" accept=".png, .jpg, .jpeg, .webp">
+								</div>
+								<button class="btn primary-btn m-text bold-text">Cargar Imagen</button>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -72,10 +73,10 @@
 	</main>
 	<footer class="container-fluid mt-6 pt-3 text-center bg-lblack">
 		<div class="row w-100">
-			<h2 class="l-text title-font">Awesome Fourier</h2>
+			<h2 class="l-text title-font c-white">Awesome Edges</h2>
 		</div>
 		<div class="row w-100">
-			<p>© Papiro & Tinta 2023 - Todos los derechos reservados</p>
+			<p class="c-white">© Awesome Edges 2023 - Todos los derechos reservados</p>
 		</div>
 	</footer>
 	<!-- JS Bootstrap -->

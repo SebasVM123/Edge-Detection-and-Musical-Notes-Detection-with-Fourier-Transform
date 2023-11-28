@@ -1,7 +1,8 @@
 import os
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
+from django.urls import reverse
 
 import cv2
 import numpy as np
@@ -15,22 +16,23 @@ def index(request):
         uploaded_image = request.FILES['image']
 
         # procesamiento
-        media_root = settings.MEDIA_ROOT
+        static_root = ('C:/Users/sebas/PycharmProjects/Final-ComunicacionesI/FourierImgEdgeDetection/static/'
+                       'assets/images')
 
         '''if not imagen_adjunta.name.endswith(('.png', '.jpg', '.jpeg')):
             return HttpResponseBadRequest('Formato de imagen no válido')'''
 
-        image_path = os.path.join(media_root, 'uploaded_image.png')
+        image_path = os.path.join(static_root, 'uploaded_image.png')
         with open(image_path, 'wb') as f:
             for chunk in uploaded_image.chunks():
                 f.write(chunk)
 
         cv2_image = cv2.imread(image_path)
-        image_path = os.path.join(media_root, 'cv2_image.png')
+        image_path = os.path.join(static_root, 'cv2_image.png')
         cv2.imwrite(image_path, cv2_image)
 
         gray_image = rgb2gray(cv2_image)
-        image_path = os.path.join(media_root, 'gray_image.png')
+        image_path = os.path.join(static_root, 'gray_image.png')
         cv2.imwrite(image_path, gray_image * 255)
 
         def sobel_kernel_convolve2d(image):
@@ -45,10 +47,14 @@ def index(request):
 
             return edges
 
-        edges = sobel_kernel_convolve2d(gray_image)
-        image_path = os.path.join(media_root, 'final_image.png')
-        cv2.imwrite(image_path, edges * 255)
+        image = sobel_kernel_convolve2d(gray_image)
+        image_path = os.path.join(static_root, 'final_image.png')
+        cv2.imwrite(image_path, image * 255)
 
-        return render(request, 'upload_success.html')
+        return redirect(reverse('download_image'))
 
     return render(request, 'index.html')
+
+
+def download_image(request):
+    return render(request, 'upload_success.html')

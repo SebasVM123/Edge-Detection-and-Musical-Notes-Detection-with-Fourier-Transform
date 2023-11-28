@@ -23,10 +23,11 @@ def index(request):
         uploaded_image = request.FILES['image']
 
         # procesamiento
-        static_root = ('C:/Users/sebas/PycharmProjects/Final-ComunicacionesI/FourierImgEdgeDetection/static/'
-                       'assets/generated_images')
+        static_root = settings.STATIC_ROOT[:-5] + r'\assets\generated_images'
 
         image_path = os.path.join(static_root, 'uploaded_image.png')
+        print(image_path)
+
         with open(image_path, 'wb') as f:
             for chunk in uploaded_image.chunks():
                 f.write(chunk)
@@ -68,8 +69,7 @@ def musical_notes(request):
     if request.method == 'POST':
         uploaded_sound = request.FILES['sound']
 
-        static_root = ('C:/Users/sebas/PycharmProjects/Final-ComunicacionesI/FourierImgEdgeDetection/static/'
-                       'assets/generated_sounds')
+        static_root = settings.STATIC_ROOT[:-5] + r'\assets\generated_sounds'
 
         sound_path = os.path.join(static_root, 'uploaded_sound.wav')
         with open(sound_path, 'wb') as f:
